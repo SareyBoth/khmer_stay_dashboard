@@ -1,26 +1,116 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ivory: #fbf7ef;
+  --cream: #fffdf8;
+  --sandstone: #e8dcc7;
+  --champagne: #d7b77a;
+  --gold: #b88a44;
+  --gold-deep: #8e652c;
+  --temple: #2b2118;
+  --charcoal: #3b332d;
+  --muted: #756d66;
+  --sage: #8fa38a;
+  --terracotta: #c98262;
+  --success: #3c7a57;
+  --warning: #c48a32;
+  --error: #b85656;
+  --info: #547a91;
+  --shadow: 0 18px 54px rgba(70, 50, 28, 0.1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--ivory);
+  --color-foreground: var(--temple);
+  --font-sans: var(--font-latin), var(--font-khmer), sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+* { box-sizing: border-box; }
+html { background: var(--ivory); color: var(--temple); }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  background: radial-gradient(circle at 10% 0%, rgba(215, 183, 122, 0.1), transparent 28rem), var(--ivory);
+  color: var(--temple);
+  font-family: var(--font-latin), var(--font-khmer), sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+button, input, select, textarea { font: inherit; }
+button, a, input, select, textarea { outline: none; }
+:focus-visible { outline: 3px solid rgba(184, 138, 68, 0.38); outline-offset: 2px; }
+button, a { -webkit-tap-highlight-color: transparent; }
+::selection { background: rgba(215, 183, 122, 0.45); }
+.khmer { font-family: var(--font-khmer), var(--font-latin), sans-serif; }
+.tabular { font-variant-numeric: tabular-nums; }
+.scrollbar-thin { scrollbar-color: rgba(184, 138, 68, 0.35) transparent; scrollbar-width: thin; }
+
+.form-input {
+  min-height: 2.75rem;
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid #ded2c0;
+  background: white;
+  padding: 0.65rem 0.8rem;
+  color: #2b2118;
+}
+
+.form-input:focus {
+  border-color: #b88a44;
+  box-shadow: 0 0 0 3px rgba(184, 138, 68, 0.12);
+}
+
+.form-input:disabled {
+  cursor: not-allowed;
+  background: #f0ebe4;
+  color: #776e66;
+}
+
+.calendar-wrap .rdp-root {
+  --rdp-accent-color: #9b6e31;
+  --rdp-accent-background-color: #f4e1b9;
+  width: 100%;
+}
+
+.calendar-wrap .rdp-months,
+.calendar-wrap .rdp-month,
+.calendar-wrap .rdp-month_grid {
+  width: 100%;
+  max-width: none;
+}
+
+.calendar-wrap .rdp-day {
+  height: clamp(3.4rem, 8vw, 6.6rem);
+  border: 1px solid #eee5d7;
+  background: #f5faf6;
+  vertical-align: top;
+}
+
+.calendar-wrap .rdp-day_button {
+  width: 100%;
+  height: 100%;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border-radius: 0;
+  padding: 0.55rem;
+  font-weight: 700;
+}
+
+.calendar-wrap .calendar-booked { background: #e5f0f5; color: #40677b; }
+.calendar-wrap .calendar-blocked { background: #f6e5e2; color: #934848; text-decoration: line-through; }
+.calendar-wrap .rdp-selected { background: #f4e1b9; color: #644417; }
+.calendar-wrap .rdp-weekday { padding-block: 0.75rem; font-size: 0.75rem; font-weight: 800; color: #776d64; }
+
+@media (max-width: 640px) {
+  .calendar-wrap .rdp-day { height: 3.25rem; }
+  .calendar-wrap .rdp-day_button { padding: 0.3rem; font-size: 0.75rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
