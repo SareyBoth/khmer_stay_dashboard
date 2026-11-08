@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
   --ivory: #fbf7ef;
@@ -9,7 +13,7 @@
   --gold-deep: #8e652c;
   --temple: #2b2118;
   --charcoal: #3b332d;
-  --muted: #756d66;
+  --muted: oklch(0.97 0 0);
   --sage: #8fa38a;
   --terracotta: #c98262;
   --success: #3c7a57;
@@ -17,33 +21,138 @@
   --error: #b85656;
   --info: #547a91;
   --shadow: 0 18px 54px rgba(70, 50, 28, 0.1);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
 }
 
 @theme inline {
   --color-background: var(--ivory);
   --color-foreground: var(--temple);
   --font-sans: var(--font-latin), var(--font-khmer), sans-serif;
+  --font-heading: var(--font-latin), var(--font-khmer), sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-* { box-sizing: border-box; }
-html { background: var(--ivory); color: var(--temple); }
+* {
+  box-sizing: border-box;
+}
+html {
+  background: var(--ivory);
+  color: var(--temple);
+}
 body {
   min-height: 100vh;
   margin: 0;
-  background: radial-gradient(circle at 10% 0%, rgba(215, 183, 122, 0.1), transparent 28rem), var(--ivory);
+  background:
+    radial-gradient(
+      circle at 10% 0%,
+      rgba(215, 183, 122, 0.1),
+      transparent 28rem
+    ),
+    var(--ivory);
   color: var(--temple);
   font-family: var(--font-latin), var(--font-khmer), sans-serif;
   font-size: 16px;
   line-height: 1.5;
 }
-button, input, select, textarea { font: inherit; }
-button, a, input, select, textarea { outline: none; }
-:focus-visible { outline: 3px solid rgba(184, 138, 68, 0.38); outline-offset: 2px; }
-button, a { -webkit-tap-highlight-color: transparent; }
-::selection { background: rgba(215, 183, 122, 0.45); }
-.khmer { font-family: var(--font-khmer), var(--font-latin), sans-serif; }
-.tabular { font-variant-numeric: tabular-nums; }
-.scrollbar-thin { scrollbar-color: rgba(184, 138, 68, 0.35) transparent; scrollbar-width: thin; }
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+button,
+a,
+input,
+select,
+textarea {
+  outline: none;
+}
+:focus-visible {
+  outline: 3px solid rgba(184, 138, 68, 0.38);
+  outline-offset: 2px;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+::selection {
+  background: rgba(215, 183, 122, 0.45);
+}
+.khmer {
+  font-family: var(--font-khmer), var(--font-latin), sans-serif;
+}
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+.scrollbar-thin {
+  scrollbar-color: rgba(184, 138, 68, 0.35) transparent;
+  scrollbar-width: thin;
+}
 
 .form-input {
   min-height: 2.75rem;
@@ -96,21 +205,89 @@ button, a { -webkit-tap-highlight-color: transparent; }
   font-weight: 700;
 }
 
-.calendar-wrap .calendar-booked { background: #e5f0f5; color: #40677b; }
-.calendar-wrap .calendar-blocked { background: #f6e5e2; color: #934848; text-decoration: line-through; }
-.calendar-wrap .rdp-selected { background: #f4e1b9; color: #644417; }
-.calendar-wrap .rdp-weekday { padding-block: 0.75rem; font-size: 0.75rem; font-weight: 800; color: #776d64; }
+.calendar-wrap .calendar-booked {
+  background: #e5f0f5;
+  color: #40677b;
+}
+.calendar-wrap .calendar-blocked {
+  background: #f6e5e2;
+  color: #934848;
+  text-decoration: line-through;
+}
+.calendar-wrap .rdp-selected {
+  background: #f4e1b9;
+  color: #644417;
+}
+.calendar-wrap .rdp-weekday {
+  padding-block: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #776d64;
+}
 
 @media (max-width: 640px) {
-  .calendar-wrap .rdp-day { height: 3.25rem; }
-  .calendar-wrap .rdp-day_button { padding: 0.3rem; font-size: 0.75rem; }
+  .calendar-wrap .rdp-day {
+    height: 3.25rem;
+  }
+  .calendar-wrap .rdp-day_button {
+    padding: 0.3rem;
+    font-size: 0.75rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
   }
 }

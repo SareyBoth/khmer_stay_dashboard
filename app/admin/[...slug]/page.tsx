@@ -5,7 +5,7 @@ import { bookings, properties } from "@/src/lib/mock-data";
 export const metadata: Metadata = { title: "Admin Portal" };
 
 const adminRoutes = [
-  [], ["users"], ["owners"], ["verifications"], ["properties"], ["bookings"], ["payments"], ["commissions"],
+  ["users"], ["owners"], ["verifications"], ["properties"], ["bookings"], ["payments"], ["commissions"],
   ["payouts"], ["refunds"], ["reviews"], ["reports"], ["promotions"], ["catalog"], ["content"], ["support"],
   ["notifications"], ["audit-logs"], ["settings"], ["account"],
   ...properties.map((property) => ["properties", property.id]),
@@ -13,10 +13,10 @@ const adminRoutes = [
 ];
 
 export function generateStaticParams() {
-  return adminRoutes.map((slug) => ({ slug: slug.length ? slug : undefined }));
+  return adminRoutes.map((slug) => ({ slug }));
 }
 
-export default async function AdminPage({ params }: { params: Promise<{ slug?: string[] }> }) {
+export default async function AdminSectionPage({ params }: { params: Promise<{ slug: string[] }> }) {
   const { slug } = await params;
   return <PortalApp portal="admin" segments={slug} />;
 }

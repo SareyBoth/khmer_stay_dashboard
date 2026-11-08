@@ -1,4 +1,5 @@
 import type { Booking, BookingStatus, Owner, Property, PropertyStatus, Traveler } from "@/src/types";
+import { useAppStore } from "@/src/stores/app-store";
 
 const images = [
   "/images/siem-reap-homestay.png",
@@ -126,8 +127,24 @@ export const financeRows = bookings.slice(0, 12).map((booking, index) => ({
 }));
 
 export const DEMO_RATE = 4100;
-export function formatMoney(amount: number, currency: "USD" | "KHR") {
-  return currency === "USD"
-    ? new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(amount)
-    : `${new Intl.NumberFormat("km-KH", { maximumFractionDigits: 0 }).format(amount * DEMO_RATE)}៛`;
+export function formatMoney(amount: number, currency: "USD" | "KHR", customRate?: number) {
+  let rate = customRate;
+  if (!rate) {
+    try {
+      rate = useAppStore.getState().exchangeRate;
+    } catch {
+      rate = DEMO_RATE;
+    }
+  }
+  if (!rate || rate <= 0) rate = DEMO_RATE;
+
+  if (currency === "USD") {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: amount % 1 === 0 ? 0 : 2,
+    }).format(amount);
+  }
+  const khr = Math.round((amount * rate) / 100) * 100;
+  return `${new Intl.NumberFormat("km-KH", { maximumFractionDigits: 0 }).format(khr)}៛`;
 }
